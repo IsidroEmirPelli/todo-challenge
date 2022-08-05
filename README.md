@@ -1,37 +1,40 @@
-# Invera ToDo-List Challenge (Python/Django Jr-SSr)
+# Getting Started
+##### Para poder darle uso a la API rest estos son los pasos a seguir:
+1. El primer paso es clonar el proyecto
 
-El propósito de esta prueba es conocer tu capacidad para crear una pequeña aplicación funcional en un límite de tiempo. A continuación, encontrarás las funciones, los requisitos y los puntos clave que debés tener en cuenta durante el desarrollo.
+    `git clone https://github.com/IsidroEmirPelli/todo-challenge.git`
 
-## Qué queremos que hagas:
+2.  Una vez que tengas repositorio clonado recomiendo crear un entorno virtual
 
-- El Challenge consiste en crear una aplicación web sencilla que permita a los usuarios crear y mantener una lista de tareas.
-- La entrega del resultado será en un nuevo fork de este repo y deberás hacer una pequeña demo del funcionamiento y desarrollo del proyecto ante un super comité de las más grandes mentes maestras de Invera, o a un par de devs, lo que sea más fácil de conseguir.
-- Podes contactarnos en caso que tengas alguna consulta.
+    `python -m venv ./venv`
 
-## Objetivos:
+3. El siguente paso es entrar al venv en caso de haber creado el entorno virtual
 
-El usuario de la aplicación tiene que ser capaz de:
+    `/venv/scripts/activate`
 
-- Autenticarse
-- Crear una tarea
-- Eliminar una tarea
-- Marcar tareas como completadas
-- Poder ver una lista de todas las tareas existentes
-- Filtrar/buscar tareas por fecha de creación y/o por el contenido de la misma
+4. Tienes que instalar los requeriments.txt
 
-## Qué evaluamos:
+    `pip install -r requeriments.txt`
 
-- Desarrollo utilizando Python, Django. No es necesario crear un Front-End, pero sí es necesario tener una API que permita cumplir con los objetivos de arriba.
-- Uso de librerías y paquetes estandares que reduzcan la cantidad de código propio añadido.
-- Calidad y arquitectura de código. Facilidad de lectura y mantenimiento del código. Estándares seguidos.
-- [Bonus] Manejo de logs.
-- [Bonus] Creación de tests (unitarias y de integración)
-- [Bonus] Unificar la solución propuesta en una imagen de Docker por repositorio para poder ser ejecutada en cualquier ambiente (si aplica para full stack).
+5. Lo siguente es abrir el servidor
 
-## Requerimientos de entrega:
+    `python manage.py runserver`
 
-- Hacer un fork del proyecto y pushearlo en github. Puede ser privado.
-- La solución debe correr correctamente.
-- El Readme debe contener todas las instrucciones para poder levantar la aplicación, en caso de ser necesario, y explicar cómo se usa.
-- Disponibilidad para realizar una pequeña demo del proyecto al finalizar el challenge.
-- Tiempo para la entrega: Aproximadamente 7 días.
+## Urls
+##### Para poder acceder a la api necesitas obtener una clave de autentificacion
+Para ello vamos a acceder a http://127.0.0.1:8000/api/login/
+Y vamos a ingresar las credenciales 
+
+`Username:user` `Password:pass`
+
+### Una vez que tenemos la clave de auth podremos acceder a los siguentes endpoints
+##### Creacion  de tareas
+-Post `http://127.0.0.1:8000/api/tasks?content="Tarea"`
+##### Eliminar una tarea.
+-Delete `http://127.0.0.1:8000/api/tasks/<pk>/`
+##### Actualizar el estado de una tarea
+-Patch  `http://127.0.0.1:8000/api/tasks/<pk>/`
+##### Visualizar una lista de todas las tareas existentes
+-Get `http://127.0.0.1:8000/api/tasks/`
+##### Filtrar/buscar tareas por fecha de creación y/o por el contenido de la misma
+-Get `http://127.0.0.1:8000/api/tasks/filter/?fecha=2022-08-05&content=tarea`
