@@ -32,18 +32,29 @@ class TaskViewSet(viewsets.ViewSet):
 
     def patch(self, request, pk):
         """ Update complete status of a task"""
-        task = Task.objects.get(id=pk)
-        task.completed = True
-        task.save()
-        logger.info(f"Task completed successfully!: {task.completed}")
-        return Response({'message': 'Task completed successfully!'}, status=status.HTTP_200_OK)
+        try:
+            task = Task.objects.get(id=pk)
+            if task.complete:
+                task.complete = False
+            else:
+                task.completed = True
+            task.save()
+            logger.info(f"Task completed successfully!: {task.completed}")
+            return Response({'message': 'Task completed successfully!'}, status=status.HTTP_200_OK)
+        except Task.DoesNotExist:
+            logger.info(f"Task completion failed!: id {pk}")
+            return Response({'message': 'Task completion failed!'}, status=status.HTTP_404_NOT_FOUND)
 
     def destroy(self, request, pk):
         """ Delete a task """
-        task = Task.objects.get(id=pk)
-        logger.info(f"Task deleted successfully!: id {task.id}")
-        task.delete()
-        return Response({'message': 'Task deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+        try:
+            task = Task.objects.get(id=pk)
+            logger.info(f"Task deleted successfully!: id {task.id}")
+            task.delete()
+            return Response({'message': 'Task deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+        except Task.DoesNotExist:
+            logger.info(f"Task deletion failed! id {pk}")
+            return Response({'message': 'Task deletion failed!'}, status=status.HTTP_404_NOT_FOUND)
 
     @action(detail=False, methods=['get'])
     def filter(self, request):
